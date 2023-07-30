@@ -1,0 +1,205 @@
+val = """In Python Strings are arrays of bytes representing Unicode
+characters However Python does not have a character data type a
+single character is simply a string with a length of 1"""
+
+
+def process(a):
+    s = a.replace(" ", "")
+    return s
+
+
+def numchar():
+    s1 = process(val)
+    print("Input String: ", val)
+    print("Number of Characters in String \t: ", len(s1))
+
+
+def strlen():
+    s1 = val.split()
+    print("Input String: ", val)
+    print("Length of String\t\t: ", len(s1))
+
+
+def f2l2():
+    a = input("Enter Sentence: ")
+    res = a[:2] + a[-2:]
+    if len(a) < 2:
+        print("First two char + Last two char : ", "[]")
+    else:
+        print("First two char + Last two char \t: ", res)
+
+
+def firstreplace():
+    a = val[0]
+    v = a.lower()
+    int = val.replace(v, "$")
+    res = int.replace(int[0], a)
+    print("\nReplace Occurrence of first character: ")
+    print(res)
+    print("")
+
+
+def stringswap():
+    s1 = input("Enter Sentence1: ")
+    s2 = input("Enter Sentence2: ")
+
+    temp1 = s1[:2]
+    temp2 = s2[:2]
+    concat = temp2 + s1[2:] + " " + temp1 + s2[2:]
+    print("String swap : ", concat)
+
+
+def inging():
+    string = input("Enter word: ")
+    end = string[-3:]
+    if len(string) < 3:
+        print(string)
+    elif end == "ing":
+        res = string + "ly"
+        print(res)
+    else:
+        res = string + "ing"
+        print(res)
+
+
+def removethepoor():
+    string = input("Enter Sentence: ")
+    a = string.split()
+    for i in range(len(a)):
+        if a[i] == "not":
+            x = i
+        elif a[i] == "poor":
+            y = i
+    if x < y:
+        res = a[0:x] + ["good"] + a[y + 1:]
+        print(res)
+    else:
+        print(a)
+
+
+def largest():
+    words = input("Enter words: ").split()
+    # words = ["Bird", "Cat", "Dog", "Cow", "Goat", "Baddies"]
+    weight = []
+    for i in range(len(words)):
+        weight.append(len(words[i]))
+    print("Length of longest word: ", max(weight))
+
+
+def nremove():
+    string = input("Enter word: ")
+    n = int(input("Enter positon of character to be removed [0+]: "))
+    print("Result: ", string[:n] + string[n + 1:])
+
+
+def flswitch():
+    string = input("Enter word: ")
+    print("Result: ", string[-1] + string[1:-1] + string[0])
+
+
+def oddcleansing():
+    string = input("Enter word: ")
+    result = ""
+    for i in range(len(string)):
+        if i % 2 != 0:
+            result += string[i]
+
+    print(result)
+
+
+def chartally():
+    # string = "Fatbird"
+    string = input("Enter Sentence: ").lower().split()
+    d = dict()
+    for word in string:
+        if word in d:
+            d[word] += 1
+        else:
+            d[word] = 1
+    print(d)
+
+
+def upperlower():
+    string = input("Enter word: ")
+    print("Lowercase: ", string.lower())
+    print("Uppercase: ", string.upper())
+
+
+def csvword():
+    d = dict()
+    string = input("Enter Sentence: ").lower().split(",")
+    for word in string:
+        if word in d:
+            d[word] += 1
+        else:
+            d[word] = 1
+    print(d)
+
+
+def htmltag():
+    string = input("Enter Input: ").split()
+    tag = string[0]
+    word = string[1]
+    print("<%s>%s</%s>" % (tag, word, tag))
+
+
+choice = int(input("""1. Length of a string.
+2. Number of characters in a string.
+3. String made of the first 2 and the last 2 chars
+4. All occurrences of its first char have been changed to '$', except the first char itself.
+5. Single string from two given strings, separated by a space and swap the first two char.
+6. Add 'ing' at the end of a given string. If the given string already ends with 'ing' then add 'ly' instead. 
+7. Replace the whole 'not'...'poor' substring with 'good'. Return the resulting string.
+8. Length of the longest word in list.
+9. Remove the nth index character from a nonempty string.
+10. First and last chars have been exchanged.
+11. Remove odd index values of a given string.
+12. Count the occurrences of each word in a given sentence.
+13. Upper and lower case of input.
+14. csv as input and prints the unique words in sorted form.
+15. Create the HTML string with tags around the word(s).\n
+Choice: """))
+if choice == 1:
+    numchar()
+
+elif choice == 2:
+    strlen()
+
+elif choice == 3:
+    f2l2()
+
+elif choice == 4:
+    firstreplace()
+
+elif choice == 5:
+    stringswap()
+
+elif choice == 6:
+    inging()
+
+elif choice == 7:
+    removethepoor()
+
+elif choice == 8:
+    largest()
+
+elif choice == 9:
+    nremove()
+
+elif choice == 10:
+    flswitch()
+
+elif choice == 11:
+    oddcleansing()
+
+elif choice == 12:
+    chartally()
+
+elif choice == 13:
+    upperlower()
+
+elif choice == 14:
+    csvword()
+
+elif choice == 15:
+    htmltag()
