@@ -1,0 +1,114 @@
+# exp 02
+import string
+import re
+import spacy
+from spacy import displacy
+import nltk
+from nltk.stem.porter import PorterStemmer
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
+
+NER = spacy.load("en_core_web_sm")
+
+words = set(nltk.corpus.words.words())
+# nltk.download('averaged_perceptron_tagger')
+# nltk.download('words')
+# nltk.download('punkt')
+# nltk.download('wordnet')
+# nltk.download('stopwords')
+
+
+stringip = "Hey, did you know that the summer break is coming? Amazing right!! oonga boonga amigo It’s only 5 more days!!https://classroom.google.com/w/NTU0NTE3MTMyNzc2/t/all"
+
+stemmer = PorterStemmer()
+lemmatizer = WordNetLemmatizer()
+
+
+def tokenize(text):
+    word_tokens = word_tokenize(text)
+    return word_tokens
+
+
+def stemming(a):
+    stems = [stemmer.stem(word) for word in a]
+    return stems
+
+
+def lemmatize(a):
+    lemmas = [lemmatizer.lemmatize(word, pos='v') for word in a]
+    return lemmas
+
+
+def stopwordremoval(a):
+    stop_words = set(stopwords.words("english"))
+    filtered_text = [word for word in a if word not in stop_words]
+    return filtered_text
+
+
+def filtration(a):
+    op = " ".join(w for w in nltk.wordpunct_tokenize(a) if w.lower() in words or not w.isalpha())
+    return op
+
+
+def scriptvalidation(a):
+    translator = str.maketrans('', '', string.punctuation)
+    return a.translate(translator)
+
+
+def post(a):
+    tagged = nltk.pos_tag(a)
+    return tagged
+
+
+def urlremoval(a):
+    return re.sub(r"http\S+", "", a)
+
+
+def punctremove(a):
+    punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+    for ele in a:
+        if ele in punc:
+            a = a.replace(ele, "")
+    return a
+
+
+def ner():
+    raw_text = """    The Indian Space Research Organisation or is the national space agency of India,
+    headquartered in Bengaluru. It operates under Department of Space which is directly
+    overseen by the Prime Minister of India while Chairman of ISRO acts as executive of DOS as well."""
+    print("Input: ")
+    print(raw_text)
+    print()
+    text1 = NER(raw_text)
+    for word in text1.ents:
+        print(word.label_, "\t", word.text)
+
+
+def process():
+    sv = scriptvalidation(stringip)
+    ur = urlremoval(sv)
+    tokens = tokenize(ur)
+    stem = stemming(tokens)
+    lemma = lemmatize(tokens)
+    sw = stopwordremoval(lemma)
+    fl = filtration(ur)
+    pt = post(tokens)
+    pr = punctremove(stringip)
+
+    print("input\t\t\t", stringip)
+    print("tokens\t\t\t", tokens)
+    print("stem\t\t\t", stem)
+    print("lemma\t\t\t", lemma)
+    print("Stopword removal", sw)
+    print("Filtration\t\t", fl)
+    print("script val\t\t", sv)
+    print()
+    print("url removal\t\t", ur)
+    print("pos tagging\t\t", pt)
+    print("punct removal\t", pr)
+    print("NER")
+    ner()
+
+
+process()
