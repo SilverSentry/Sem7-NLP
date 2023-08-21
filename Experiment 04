@@ -1,0 +1,20 @@
+import pandas as pd
+data = pd.read_table('/content/sample_data/data.txt', header=None, delimiter=None)[0].to_list()
+for i in range(len(data)):
+  data[i] = data[i].split()
+  print(data[i])
+
+# bigram generation
+bigram = []
+for i in range(len(data)):
+  for j in range(len(data[i]) -1):
+    a = data[i][j], data[i][j+1]
+    bigram.append(a)
+for row in bigram:
+  print(*row)
+
+# unique bigrams
+a = set(bigram)
+for row in a:
+  print(*row)
+# pending
